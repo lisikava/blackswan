@@ -1,0 +1,80 @@
+ @if(shop$ | async; as shop) {
+   <div class="dashboard-container">
+      <header class="dashboard-header">
+         <h1>Artist Dashboard</h1>
+         <p>Manage your shop and artworks here!</p>
+      </header>
+      <div class="dashboard-grid">
+         <mat-card class="example-card" appearance="outlined">
+            <mat-card-header>
+               <!-- <div mat-card-avatar class="example-header-image"></div> -->
+               <mat-card-title> {{ shop.name }} </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+               <p>
+                  {{ shop.description }}
+               </p>
+            </mat-card-content>
+         </mat-card>
+
+         <!-- <div class="shop-name">
+            <h2>{{ shop.name }}</h2>
+            <h3>{{ shop.description }}</h3>
+         </div> -->
+         <div class="edit-shop-button">
+            <a matButton [routerLink]="['/shop/edit']">Edit Shop</a>
+         </div>
+         <div class="upload-artwork-button">
+            <a matButton [routerLink]="['/shop/upload']">Add Artwork</a>
+         </div>
+
+         <mat-card class="grid-item manage-section">
+            <mat-card-header>
+            <mat-card-title>Manage Your Artworks</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+            <div class="artwork-grid">
+               @if (artworks$ | async; as artworks) {
+                  @for (art of artworks; track art.title) {
+                     <div class="artwork-item">
+                        <mat-card class="art-card" appearance="outlined">
+                           <mat-card-header>
+                              <mat-card-title>{{art.title}}</mat-card-title>
+                           </mat-card-header>
+                           <div class="image-wrapper">
+                              <img mat-card-image [src]="'http://localhost:8080' + art.imageUrl" [alt]="art.title">
+                           </div>
+                           <mat-card-content>
+                              <p class="description-text">{{art.description}}</p>
+                           </mat-card-content>
+                           <mat-card-footer class="example-card-footer">
+                              <mat-chip-set>
+                                 @for (tag of art.tags; track tag) {
+                                    <mat-chip>{{tag}}</mat-chip>
+                                 } @empty {}
+                              </mat-chip-set>
+                           </mat-card-footer>
+                           <mat-card-actions>
+                              <button mat-icon-button (click)="edit(art.id)" color="primary"><mat-icon>edit</mat-icon></button>
+                              <button mat-icon-button (click)="remove(art.id)" color="warn"><mat-icon>delete</mat-icon></button>
+                           </mat-card-actions>
+                           
+                        </mat-card>
+                        </div>
+                     <!-- <mat-divider></mat-divider> -->
+                  } @empty {
+                     <p>No artworks listed yet.</p>
+                  }
+               }
+               
+         
+            </div>
+            </mat-card-content>
+         </mat-card>
+      </div>
+
+   </div>
+   <!-- <div>NAME: {{shop?.name}}</div> -->
+   
+     
+ }

@@ -1,0 +1,60 @@
+<!-- <p>public-shop works!</p> -->
+@if (shop$ | async; as shop) {
+    <div class="public-shop-container">
+      
+      <div class="public-shop-grid">
+         <mat-card class="example-card" appearance="outlined">
+            <mat-card-header>
+               <!-- <div mat-card-avatar class="example-header-image"></div> -->
+               <mat-card-title> {{ shop.name }} </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+               <p>
+                  {{ shop.description }}
+               </p>
+            </mat-card-content>
+         </mat-card>
+
+         <!-- <div class="shop-name">
+            <h2>{{ shop.name }}</h2>
+            <h3>{{ shop.description }}</h3>
+         </div> -->
+         <mat-card class="grid-item manage-section">
+            <mat-card-content>
+            <div class="artwork-grid">
+               @if (shop.artworks) {
+                  @for (art of shop.artworks; track art.title) {
+                     <div class="artwork-item">
+                        <mat-card class="art-card" appearance="outlined">
+                           <mat-card-header>
+                              <mat-card-title style="margin-bottom: 4px;">{{art.title}}</mat-card-title>
+                           </mat-card-header>
+                           <div class="image-wrapper">
+                              <img mat-card-image [src]="'http://localhost:8080' + art.imageUrl" [alt]="art.title">
+                           </div>
+                           <mat-card-content>
+                              <p class="description-text">{{art.description}}</p>
+                           </mat-card-content>
+                           <mat-card-footer class="example-card-footer">
+                              <mat-chip-set>
+                                 @for (tag of art.tags; track tag) {
+                                    <mat-chip>{{tag}}</mat-chip>
+                                 } @empty {}
+                              </mat-chip-set>
+                           </mat-card-footer>
+                           <mat-card-actions>
+                           </mat-card-actions>
+                           
+                        </mat-card>
+                        </div>
+                  } @empty {
+                     <p>No artworks listed yet.</p>
+                  }
+               }
+            </div>
+            </mat-card-content>
+         </mat-card>
+      </div>
+
+   </div>
+}

@@ -1,0 +1,46 @@
+<div class="login-container">
+<h2>Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="email-container">
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput id="email" type="email" placeholder="example@example.com" formControlName="email" required
+          />
+          @if (loginForm.get('email')?.invalid) {
+            <mat-error>Email is invalid</mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <!-- <div>
+        <label for="email">Email:</label>
+        <input id="email" type="email" formControlName="email">
+        
+        @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+          <div>Email is required</div>
+        }
+      </div> -->
+      <div class="password-container">
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput id="password" type="password" formControlName="password" required
+          />
+          @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+            <mat-error>Password is required</mat-error>
+          }
+        </mat-form-field>
+        <!-- <label for="password">Password:</label>
+        <input id="password" type="password" formControlName="password">
+        @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+          <div>Password is required</div>
+        } -->
+        
+      </div>
+      <button matButton="tonal" type="submit" [disabled]="loginForm.invalid">Log In</button>
+      <!-- <button type="submit" [disabled]="loginForm.invalid">Log In</button> -->
+      @if (error$ | async; as error) {
+        <mat-error>{{ error }}</mat-error>
+      }
+    </form>
+    <div>Don't have an account? <a matButton [routerLink]="['/register']">Sign Up</a></div>
+</div>

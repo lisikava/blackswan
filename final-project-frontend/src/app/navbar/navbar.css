@@ -1,0 +1,40 @@
+.navbar-container {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  /* Keeps the navbar at the top if needed */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.brand-logo {
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.nav-links {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+}
+
+/* Style for the currently active route */
+.active-link {
+  background: rgba(255, 255, 255, 0.15);
+  border-bottom: 2px solid white;
+  border-radius: 0;
+}

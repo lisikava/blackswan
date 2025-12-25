@@ -1,0 +1,46 @@
+<!-- <p>public-shop works!</p> -->
+@if (artworks$ | async; as artworks) {
+    <div class="homepage-container">
+      
+      <div class="homepage-grid">
+         <mat-card class="grid-item manage-section">
+            <mat-card-content>
+            <div class="artwork-grid">
+               <!-- @if (shop.artworks) { -->
+                  @for (art of artworks; track art.title) {
+                     <div class="artwork-item" (click)="openShop(art.shopSlug)">
+                        <mat-card class="art-card" appearance="outlined">
+                           <mat-card-header>
+                              <mat-card-title>{{art.title}}</mat-card-title>
+                              <mat-card-subtitle style="margin-bottom: 3px;"><a routerLink="/shops/{{art.shopSlug}}">{{art.shopName}}</a></mat-card-subtitle>
+                           </mat-card-header>
+                           <div class="image-wrapper">
+                              <img mat-card-image [src]="'http://localhost:8080' + art.imageUrl" [alt]="art.title">
+                           </div>
+                           <mat-card-content>
+                              <p class="description-text">{{art.description}}</p>
+                              <p class="price">{{art.price}}</p>
+                           </mat-card-content>
+                           <mat-card-footer class="example-card-footer">
+                              <mat-chip-set>
+                                 @for (tag of art.tags; track tag) {
+                                    <mat-chip>{{tag}}</mat-chip>
+                                 } @empty {}
+                              </mat-chip-set>
+                           
+                           </mat-card-footer>
+                           
+                           
+                        </mat-card>
+                        </div>
+                  } @empty {
+                     <p>No artworks listed yet.</p>
+                  }
+               <!-- } -->
+            </div>
+            </mat-card-content>
+         </mat-card>
+      </div>
+
+   </div>
+}

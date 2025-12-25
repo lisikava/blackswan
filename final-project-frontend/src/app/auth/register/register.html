@@ -1,0 +1,45 @@
+<div class="register-container">
+  <h2>Create account</h2>
+  <div>Already have an account?<a matButton [routerLink]="['/login']">Log In</a></div>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="email-container">
+        <mat-form-field>
+          <mat-label for="email">Email</mat-label>
+          <input matInput id="email" type="email" placeholder="example@example.com" formControlName="email" required/>
+          @if (registerForm.get('email')?.invalid) {
+            <mat-error>Email is invalid</mat-error>
+          }
+        </mat-form-field>
+      </div>
+      <div class="username-container">
+        <mat-form-field>
+          <mat-label for="username">Username</mat-label>
+          <input matInput id="username" type="text" formControlName="username">
+        </mat-form-field>
+      </div>
+      <div class="password-container">
+        <mat-form-field>
+          <mat-label for="password">Password:</mat-label>
+          <input matInput id="password" type="password" formControlName="password">
+        </mat-form-field>
+      </div>
+      <div class="role-container">
+        <mat-form-field>
+          <mat-label>I am a: </mat-label>
+            <mat-select formControlName="role">
+              <mat-option value="CUSTOMER">Buyer (just browsing)</mat-option>
+              <mat-option value="ARTIST">Artist (selling art)</mat-option>
+            </mat-select>
+        </mat-form-field>
+        
+      </div>
+      <button matButton="tonal" type="submit" [disabled]="registerForm.invalid">Register</button>
+      @if (message) {
+        <div>{{ message }}</div>
+      }
+      @if (error$ | async; as error) {
+        <div>{{ error }}</div>
+      }
+      
+    </form>
+</div>
