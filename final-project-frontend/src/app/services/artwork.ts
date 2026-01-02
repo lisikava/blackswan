@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { Artwork as ArtworkModel } from '../shop/artwork/artwork.model';
+import { PublicArtwork as ArtworkModel } from '../shop/artwork/public-artwork.model';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +28,11 @@ export class Artwork {
     deleteArtwork(id: number) {
       return this.http.delete(`${this.apiUrl}/artworks/${id}`);
     }
+
+    getArtwork(id: number) {
+      return this.http.get<ArtworkModel>(`${this.apiUrl}/artworks/${id}`);
+    }
+    
 }
 
 export interface ArtworkDto {
@@ -36,4 +41,5 @@ export interface ArtworkDto {
   price: number;
   tags: string[];
   status: 'AVAILABLE' | 'SOLD';
+  type: 'PHYSICAL' | 'DIGITAL';
 }

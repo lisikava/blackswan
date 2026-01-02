@@ -7,8 +7,9 @@
             <mat-card-content>
             <div class="artwork-grid">
                <!-- @if (shop.artworks) { -->
-                  @for (art of artworks; track art.title) {
-                     <div class="artwork-item" (click)="openShop(art.shopSlug)">
+                  @for (art of artworks; track art.id) {
+                     @if (art.status === 'AVAILABLE') {
+                        <div class="artwork-item" (click)="openShop(art.shopSlug)">
                         <mat-card class="art-card" appearance="outlined">
                            <mat-card-header>
                               <mat-card-title>{{art.title}}</mat-card-title>
@@ -19,7 +20,7 @@
                            </div>
                            <mat-card-content>
                               <p class="description-text">{{art.description}}</p>
-                              <p class="price">{{art.price}}</p>
+                              <p class="price" style="font-weight: bold;">${{art.price}}</p>
                            </mat-card-content>
                            <mat-card-footer class="example-card-footer">
                               <mat-chip-set>
@@ -29,10 +30,10 @@
                               </mat-chip-set>
                            
                            </mat-card-footer>
-                           
-                           
                         </mat-card>
                         </div>
+                     }
+                     
                   } @empty {
                      <p>No artworks listed yet.</p>
                   }

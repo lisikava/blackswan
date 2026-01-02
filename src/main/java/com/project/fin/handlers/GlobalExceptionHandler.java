@@ -1,8 +1,6 @@
 package com.project.fin.handlers;
 
-import com.project.fin.exceptions.AccessDeniedException;
-import com.project.fin.exceptions.UserAlreadyExistException;
-import com.project.fin.exceptions.UsernameNotFoundException;
+import com.project.fin.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -31,5 +29,18 @@ public class GlobalExceptionHandler {
         error.put("error", ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
     }
+    @ExceptionHandler(ArtworkNotFoundException.class)
+    public ResponseEntity<?> handleArtworkNotFound(ArtworkNotFoundException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("error", ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(OrderNotFoundException.class)
+    public ResponseEntity<?> handleOrderNotFound(OrderNotFoundException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("error", ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
 
 }

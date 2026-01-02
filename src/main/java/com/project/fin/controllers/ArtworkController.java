@@ -38,4 +38,10 @@ public class ArtworkController {
     public List<PublicArtworkDto> getRandomArtworks(@RequestParam(defaultValue = "12") int limit) {
         return artworkService.getRandomArtworks(limit);
     }
+
+    @GetMapping("/{id}")
+    @CrossOrigin
+    public ResponseEntity<?> getArtwork(@PathVariable Long id) {
+        return ResponseEntity.ok(artworkService.getArtwork(id));
+    }
 }

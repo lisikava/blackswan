@@ -1,12 +1,16 @@
-import { Component, inject } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators, NgModel } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
 import { Subject } from 'rxjs';
+import { MatChipsModule, MatChipInputEvent } from '@angular/material/chips';
+import {MatIconModule} from '@angular/material/icon';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 import { Artwork as ArtworkService } from '../../../services/artwork';
 import { ArtworkDto } from '../../../services/artwork';
@@ -16,25 +20,18 @@ import { Shop as ShopService } from '../../../services/shop';
 @Component({
   selector: 'app-upload-artwork',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatCardModule, MatButtonModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatInputModule, MatIconModule, MatFormFieldModule, MatCardModule, MatButtonModule, MatChipsModule, MatSelectModule],
   templateUrl: './upload-artwork.html',
   styleUrl: './upload-artwork.css',
 })
 export class UploadArtwork {
   // slug: string;
   artworkForm: FormGroup;
-  // artwork: ArtworkDto = {
-  //   title: '',
-  //   description: '',
-  //   price: 0,
-  //   tags: [],
-  //   status: 'AVAILABLE'
-  // };
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
-  tags = '';
+  // tags = signal<string[]>([]);
   selectedFile?: File;
   shop?: Shop;
-  // shop$: Subject<Shop> = new Subject<Shop>();
 
   constructor(
     private fb: FormBuilder,
@@ -43,11 +40,15 @@ export class UploadArtwork {
     private router: Router
   ) {
     this.artworkForm = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(3)]],
-      description: ['', [Validators.minLength(3)]],
-      price: [0, [Validators.required, Validators.min(0)]],
-      tags: [''],
-      status: 'AVAILABLE'
+      title: new FormControl('', {nonNullable: true, validators: [Validators.required, Validators.minLength(3)]}),
+      // title: ['', [Validators.required, Validators.minLength(3)]],
+      description: new FormControl('', {nonNullable: false, validators: Validators.minLength(3) }),
+      price: new FormControl(0, { nonNullable: true, validators: Validators.min(0) }),
+      // price: [0, [Validators.required, Validators.min(0)]],
+      tags: new FormControl<string[]>([], { nonNullable: true }),
+      // tags: [''],
+      status: 'AVAILABLE',
+      type: ['', [Validators.required]],
     });
   }
 
@@ -60,18 +61,43 @@ export class UploadArtwork {
       next: shop => this.shop = shop,
       error: () => this.router.navigate(['/dashboard'])
     });
-    // this.slug = this.route.snapshot.paramMap.get('slug')!;
+  }
+
+  get tagsControl() {
+    return this.artworkForm.controls['tags'];
   }
 
   onSubmit() {
     if (!this.shop || !this.selectedFile) return;
     if (this.artworkForm.valid) {
-      this.artworkForm.value['tags'] = this.artworkForm.value['tags'].split(',').map((t: any) => t.trim());
+      // this.artworkForm.value['tags'] = this.artworkForm.value['tags'].split(',').map((t: any) => t.trim());
+      // this.artworkForm.value['tags'] = this.tags;
       this.artworkService.uploadArtwork(this.artworkForm.value as any, this.selectedFile)
       .subscribe(() => this.router.navigate(['/dashboard']));
     }
     // this.artwork.tags = this.tags.split(',').map(t => t.trim());
     
+  }
+
+addTag(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+    if (value) {
+      const currentTags = this.tagsControl.value;
+      this.tagsControl.setValue([...currentTags, value]);
+      this.tagsControl.updateValueAndValidity();
+    }
+    event.chipInput!.clear();
+  }
+
+  removeTag(tag: string): void {
+    const currentTags = this.tagsControl.value;
+    const index = currentTags.indexOf(tag);
+    if (index >= 0) {
+      const newTags = [...currentTags];
+      newTags.splice(index, 1);
+      this.tagsControl.setValue(newTags);
+      this.tagsControl.updateValueAndValidity();
+    }
   }
 
 

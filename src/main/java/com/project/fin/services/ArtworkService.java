@@ -25,6 +25,7 @@ import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Service
@@ -57,6 +58,7 @@ public class ArtworkService {
         artwork.setStatus(dto.getStatus());
         artwork.setTags(dto.getTags());
         artwork.setShop(shop);
+        artwork.setType(dto.getType());
 
         return artworkRepository.save(artwork);
     }
@@ -102,5 +104,10 @@ public class ArtworkService {
         Page<Artwork> page = artworkRepository.findRandom(PageRequest.of(0, limit));
         List<PublicArtworkDto> artworkDtos = new ArrayList<>();
         return page.stream().map(a -> PublicArtworkDto.toDto(a)).toList();
+    }
+
+    public PublicArtworkDto getArtwork(Long id) {
+        Artwork artwork = artworkRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
+        return PublicArtworkDto.toDto(artwork);
     }
 }

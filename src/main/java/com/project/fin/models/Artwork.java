@@ -19,17 +19,20 @@ public class Artwork {
     private BigDecimal price;
     @Enumerated(EnumType.STRING)
     private ArtworkStatus status = ArtworkStatus.AVAILABLE;
+    @Enumerated(EnumType.STRING)
+    private ArtworkType type;
     @ManyToOne
     @JoinColumn(name = "shop_id", nullable = false)
     private Shop shop;
     public Artwork() {}
-    public Artwork(String title, String description, BigDecimal price, String imageUrl, List<String> tags, Shop shop) {
+    public Artwork(String title, String description, BigDecimal price, String imageUrl, List<String> tags, Shop shop, ArtworkType type) {
         this.title = title;
         this.description = description;
         this.price = price;
         this.imageUrl = imageUrl;
         this.tags = tags;
         this.shop = shop;
+        this.type = type;
     }
     public Long getId() {
         return id;
@@ -55,6 +58,9 @@ public class Artwork {
     public ArtworkStatus getStatus() {
         return status;
     }
+    public ArtworkType getType() {
+        return type;
+    }
 
     public void setTitle(String title) {
         this.title = title;
@@ -76,6 +82,9 @@ public class Artwork {
     }
     public void setStatus(ArtworkStatus status) {
         this.status = status;
+    }
+    public void setType(ArtworkType type) {
+        this.type = type;
     }
 
     @Override

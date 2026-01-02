@@ -35,6 +35,7 @@ public class PublicArtworkDto extends ArtworkDto {
         dto.setId(artwork.getId());
         dto.setShopSlug(artwork.getShop().getSlug());
         dto.setShopName(artwork.getShop().getName());
+        dto.setType(artwork.getType());
         return dto;
     }
 }

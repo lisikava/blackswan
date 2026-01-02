@@ -1,0 +1,40 @@
+@if (artwork$ | async; as artwork) {
+<div class="detail-container">
+  <div class="image-gallery">
+    <div class="main-image-wrapper">
+      <img [src]="'http://localhost:8080' + artwork.imageUrl" [alt]="artwork.title" class="large-image">
+    </div>
+  </div>
+
+  <div class="info-panel">
+
+    <h1 class="art-title">{{ artwork.title }}</h1>
+    <p class="artist-name">by <strong>{{ artwork.shopName }}</strong></p>
+
+    <div class="price-tag">
+      ${{ artwork.price }}
+    </div>
+
+    <mat-chip-set class="tags">
+      @for (tag of artwork.tags; track tag) {
+        <mat-chip>{{tag}}</mat-chip>
+        } @empty {}
+    </mat-chip-set>
+
+    <div class="description">
+      <h3>Description</h3>
+      <p>{{ artwork.description }}</p>
+    </div>
+
+    <div class="action-area">
+      <button mat-flat-button color="primary" class="buy-button" (click)="goToOrder()">
+        <mat-icon>shopping_cart</mat-icon>
+        BUY NOW
+      </button>
+    </div>
+
+  </div>
+</div>
+} @else {
+  <div class="loading">Loading artwork details...</div>
+}

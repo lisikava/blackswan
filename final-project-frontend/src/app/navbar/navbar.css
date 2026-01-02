@@ -2,7 +2,6 @@
   display: flex;
   align-items: center;
   padding: 0 16px;
-  /* Keeps the navbar at the top if needed */
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -32,7 +31,6 @@
   }
 }
 
-/* Style for the currently active route */
 .active-link {
   background: rgba(255, 255, 255, 0.15);
   border-bottom: 2px solid white;

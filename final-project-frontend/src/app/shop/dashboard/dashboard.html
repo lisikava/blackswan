@@ -27,6 +27,10 @@
          <div class="upload-artwork-button">
             <a matButton [routerLink]="['/shop/upload']">Add Artwork</a>
          </div>
+         <div class="orders-button">
+            <a matButton [routerLink]="['/shop/orders']">My Orders</a>
+         </div>
+
 
          <mat-card class="grid-item manage-section">
             <mat-card-header>
@@ -35,7 +39,7 @@
             <mat-card-content>
             <div class="artwork-grid">
                @if (artworks$ | async; as artworks) {
-                  @for (art of artworks; track art.title) {
+                  @for (art of artworks; track art.id) {
                      <div class="artwork-item">
                         <mat-card class="art-card" appearance="outlined">
                            <mat-card-header>

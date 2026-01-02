@@ -2,6 +2,7 @@ package com.project.fin.dto;
 
 import com.project.fin.models.Artwork;
 import com.project.fin.models.ArtworkStatus;
+import com.project.fin.models.ArtworkType;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -14,11 +15,19 @@ public class ArtworkDto {
     private List<String> tags;
     private ArtworkStatus status;
     private String imageUrl;
+    private ArtworkType type;
     public ArtworkDto() {};
 
     public Long getId() {
         return id;
     }
+    public ArtworkType getType() {
+        return type;
+    }
+    public void setType(ArtworkType type) {
+        this.type = type;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -37,6 +46,7 @@ public class ArtworkDto {
     public ArtworkStatus getStatus() {
         return status;
     }
+
     public String getImageUrl() {
         return imageUrl;
     }
@@ -69,6 +79,7 @@ public class ArtworkDto {
         dto.setStatus(artwork.getStatus());
         dto.setImageUrl(artwork.getImageUrl());
         dto.setId(artwork.getId());
+        dto.setType(artwork.getType());
         return dto;
     }
 }

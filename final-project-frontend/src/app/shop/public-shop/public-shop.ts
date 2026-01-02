@@ -37,4 +37,9 @@ export class PublicShop implements OnInit {
         }
       });
   }
+
+  displayArtwork(artworkId: number) {
+    const slug = this.route.snapshot.paramMap.get('slug')!;
+    this.router.navigate(['/shops', slug, artworkId]);
+  }
 }

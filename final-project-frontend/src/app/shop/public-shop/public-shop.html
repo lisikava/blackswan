@@ -23,8 +23,9 @@
             <mat-card-content>
             <div class="artwork-grid">
                @if (shop.artworks) {
-                  @for (art of shop.artworks; track art.title) {
-                     <div class="artwork-item">
+                  @for (art of shop.artworks; track art.id) {
+                     @if (art.status === 'AVAILABLE') {
+                        <div class="artwork-item" (click)="displayArtwork(art.id)">
                         <mat-card class="art-card" appearance="outlined">
                            <mat-card-header>
                               <mat-card-title style="margin-bottom: 4px;">{{art.title}}</mat-card-title>
@@ -47,6 +48,7 @@
                            
                         </mat-card>
                         </div>
+                     }
                   } @empty {
                      <p>No artworks listed yet.</p>
                   }

@@ -5,4 +5,6 @@ export interface Artwork {
   price: number;
   tags: string[];
   imageUrl: string;
+  status: 'AVAILABLE' | 'SOLD';
+  type: 'DIGITAL' | 'PHYSICAL';
 }

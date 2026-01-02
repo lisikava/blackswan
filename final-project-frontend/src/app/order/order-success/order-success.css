@@ -1,0 +1,16 @@
+.success-container { 
+    text-align: center; padding: 50px; max-width: 600px; margin: 0 auto; 
+}
+
+.next-steps {
+    text-align: left; background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0; 
+}
+.icon {
+    font-size: 4rem; 
+}
+button { 
+    padding: 10px 20px; cursor: pointer; 
+}
+.secondary { 
+    background: none; border: 1px solid #ccc; margin-left: 10px; 
+}

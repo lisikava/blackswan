@@ -7,4 +7,6 @@ export interface PublicArtwork {
   imageUrl: string;
   shopSlug: string;
   shopName: string;
+  status: 'AVAILABLE' | 'SOLD';
+  type: 'DIGITAL' | 'PHYSICAL';
 }

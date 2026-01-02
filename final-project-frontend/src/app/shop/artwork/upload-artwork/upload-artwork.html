@@ -20,15 +20,45 @@
         </mat-form-field>
       </div>
       <div>
+        <mat-form-field class="type-input">
+          <mat-label>Artwork Type</mat-label>
+            <mat-select formControlName="type">
+              <mat-option value="PHYSICAL">Physical (traditional)</mat-option>
+              <mat-option value="DIGITAL">Digital</mat-option>
+            </mat-select>
+        </mat-form-field>
+      </div>
+      <div>
         <mat-form-field class="price-input">
           <mat-label>Price</mat-label>
           <input matInput type="number" formControlName="price" name="price" min="0"/>
         </mat-form-field>
       </div>
       <div>
-        <mat-form-field class="tag-input">
+        <!-- <mat-form-field class="tag-input">
           <mat-label>Tags (comma separated)</mat-label>
           <input matInput type="text" formControlName="tags" name="tags" placeholder="" />
+        </mat-form-field> -->
+        <mat-form-field class="full-width">
+          <mat-label>Tags</mat-label>
+          <mat-chip-grid #chipGrid aria-label="Enter artwork tags">
+            
+            @for (tag of tagsControl.value; track tag) {
+              <mat-chip-row (removed)="removeTag(tag)">
+                {{tag}}
+                <button matChipRemove aria-label="'remove ' + tag">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip-row>
+            }
+
+            <input placeholder="New tag..."
+                  [matChipInputFor]="chipGrid"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  [matChipInputAddOnBlur]="true"
+                  (matChipInputTokenEnd)="addTag($event)"/>
+          </mat-chip-grid>
+          <mat-hint>Press Enter or comma to add a tag</mat-hint>
         </mat-form-field>
       </div>
       <div class="choose-file">

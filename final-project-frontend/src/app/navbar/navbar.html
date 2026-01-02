@@ -17,6 +17,13 @@
                 <mat-icon>dashboard</mat-icon>Dashboard
             </button>
         }
+
+        @if (auth.getRole() === 'CUSTOMER') {
+          <button mat-button routerLink="/my-orders" routerLinkActive="active-link">
+              <mat-icon>shopping_cart_checkout</mat-icon>My orders
+          </button>
+          
+        }
         
         <button mat-icon-button (click)="logOut()" aria-label="Logout">
             <mat-icon>logout</mat-icon>
