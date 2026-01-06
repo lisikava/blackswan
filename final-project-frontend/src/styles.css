@@ -75,14 +75,26 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .file-name {
     margin-left: 1rem; /* or whatever margin you require */
 }
-.choose-file-button {
+.choose-file-button  {
   margin-left: 105px;
   margin-bottom: 10px;
 }
-.choose-file {
+
+.suggest-tags-button {
+  margin-left: 105px;
+  margin-top: 10px;
+}
+
+.suggest-tags {
   display: flex;
   justify-content: left;
   margin-top: 10px;
+}
+
+.choose-file {
+  display: flex;
+  justify-content: left;
+  /* margin-top: 10px; */
 }
 
 /* .shop-description-input {
@@ -102,6 +114,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   gap: 20px;
   padding: 16px 0;
 }
+
+a {
+    color: var(--mat-sys-on-surface);
+  }
 
 .art-card {
   height: 100%; 

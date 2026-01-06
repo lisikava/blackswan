@@ -16,6 +16,7 @@ import { Artwork as ArtworkService } from '../../../services/artwork';
 import { ArtworkDto } from '../../../services/artwork';
 import { Shop } from '../../shop.model';
 import { Shop as ShopService } from '../../../services/shop';
+import { AiTagging } from '../../../services/ai-tagging';
 
 @Component({
   selector: 'app-upload-artwork',
@@ -25,7 +26,7 @@ import { Shop as ShopService } from '../../../services/shop';
   styleUrl: './upload-artwork.css',
 })
 export class UploadArtwork {
-  // slug: string;
+  loading = false;
   artworkForm: FormGroup;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
@@ -37,16 +38,14 @@ export class UploadArtwork {
     private fb: FormBuilder,
     private shopService: ShopService,
     private artworkService: ArtworkService,
+    private aiService: AiTagging,
     private router: Router
   ) {
     this.artworkForm = this.fb.group({
       title: new FormControl('', {nonNullable: true, validators: [Validators.required, Validators.minLength(3)]}),
-      // title: ['', [Validators.required, Validators.minLength(3)]],
       description: new FormControl('', {nonNullable: false, validators: Validators.minLength(3) }),
       price: new FormControl(0, { nonNullable: true, validators: Validators.min(0) }),
-      // price: [0, [Validators.required, Validators.min(0)]],
       tags: new FormControl<string[]>([], { nonNullable: true }),
-      // tags: [''],
       status: 'AVAILABLE',
       type: ['', [Validators.required]],
     });
@@ -70,13 +69,9 @@ export class UploadArtwork {
   onSubmit() {
     if (!this.shop || !this.selectedFile) return;
     if (this.artworkForm.valid) {
-      // this.artworkForm.value['tags'] = this.artworkForm.value['tags'].split(',').map((t: any) => t.trim());
-      // this.artworkForm.value['tags'] = this.tags;
       this.artworkService.uploadArtwork(this.artworkForm.value as any, this.selectedFile)
       .subscribe(() => this.router.navigate(['/dashboard']));
     }
-    // this.artwork.tags = this.tags.split(',').map(t => t.trim());
-    
   }
 
 addTag(event: MatChipInputEvent): void {
@@ -89,16 +84,31 @@ addTag(event: MatChipInputEvent): void {
     event.chipInput!.clear();
   }
 
-  removeTag(tag: string): void {
-    const currentTags = this.tagsControl.value;
-    const index = currentTags.indexOf(tag);
-    if (index >= 0) {
-      const newTags = [...currentTags];
-      newTags.splice(index, 1);
-      this.tagsControl.setValue(newTags);
-      this.tagsControl.updateValueAndValidity();
-    }
+removeTag(tag: string): void {
+  const currentTags = this.tagsControl.value;
+  const index = currentTags.indexOf(tag);
+  if (index >= 0) {
+    const newTags = [...currentTags];
+    newTags.splice(index, 1);
+    this.tagsControl.setValue(newTags);
+    this.tagsControl.updateValueAndValidity();
   }
+}
+
+suggestTags() {
+  if (!this.selectedFile) return;
+  this.loading = true;
+
+  this.aiService.suggestTags(this.selectedFile).subscribe({
+    next: (tags) => {
+      const currentTags = this.tagsControl.value || [];
+      const mergedTags = Array.from(new Set([...currentTags, ...tags]));
+      this.tagsControl.setValue(mergedTags);
+      this.loading = false;
+    },
+    error: (err) => console.error('AI Analysis failed', err)
+  });
+}
 
 
 }

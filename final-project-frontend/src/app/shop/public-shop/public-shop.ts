@@ -42,4 +42,8 @@ export class PublicShop implements OnInit {
     const slug = this.route.snapshot.paramMap.get('slug')!;
     this.router.navigate(['/shops', slug, artworkId]);
   }
+
+  openTag(tag: string) {
+    this.router.navigate(['/search'], { queryParams: { tag } });
+  }
 }

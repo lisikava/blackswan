@@ -35,6 +35,7 @@
         </mat-form-field>
       </div>
       <div>
+        <p>
         <!-- <mat-form-field class="tag-input">
           <mat-label>Tags (comma separated)</mat-label>
           <input matInput type="text" formControlName="tags" name="tags" placeholder="" />
@@ -60,7 +61,15 @@
           </mat-chip-grid>
           <mat-hint>Press Enter or comma to add a tag</mat-hint>
         </mat-form-field>
+        </p>
       </div>
+      @if (shop?.aiTags) {
+        <div class="suggest-tags">
+          <button type="button" class="suggest-tags-button" matButton (click)="suggestTags()">Suggest AI tags</button>
+        </div>
+        
+      }
+      
       <div class="choose-file">
         <button type="button" class="choose-file-button" matButton (click)="fileInput.click()">Choose File</button>
         <input hidden (change)="onFileSelected($event)" #fileInput type="file" accept="image/*" required>

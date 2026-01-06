@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { Artwork as ArtworkService } from '../../../services/artwork';
 import { PublicArtwork as Artwork } from '../public-artwork.model';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-public-artwork',
-  imports: [MatButtonModule, MatIconModule, MatChipsModule, CommonModule],
+  imports: [MatButtonModule, MatIconModule, MatChipsModule, CommonModule, RouterLink],
   templateUrl: './public-artwork.html',
   styleUrl: './public-artwork.css',
 })

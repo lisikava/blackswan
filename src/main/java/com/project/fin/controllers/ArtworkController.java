@@ -4,7 +4,6 @@ import com.project.fin.dto.ArtworkDto;
 import com.project.fin.dto.PublicArtworkDto;
 import com.project.fin.exceptions.AccessDeniedException;
 import com.project.fin.services.ArtworkService;
-import com.project.fin.services.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

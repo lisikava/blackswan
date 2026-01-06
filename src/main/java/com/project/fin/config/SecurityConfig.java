@@ -35,6 +35,7 @@ public class SecurityConfig {
                 .requestMatchers("/artworks/**").permitAll()
                 .requestMatchers("/shops/**").permitAll()
                 .requestMatchers("/shops/me").hasRole("ARTIST")
+                .requestMatchers("/ai/**").hasRole("ARTIST")
                 .requestMatchers("/reviews/**").hasRole("CUSTOMER")
                 .requestMatchers("/orders/me").hasRole("ARTIST")
                 .requestMatchers("/orders/placed").hasRole("CUSTOMER")
