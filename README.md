@@ -19,7 +19,7 @@ Requirements
 Installation
 ======
 - Copy the code from the repository with `git clone`
-- Configure your own PostgreSQL database username and password in `resources/application.properties`
+- Configure your own PostgreSQL database username and password in `src/main/resources/application.properties`
 
 Running
 ======
