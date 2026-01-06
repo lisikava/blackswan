@@ -14,6 +14,7 @@ import { PublicArtwork } from './shop/artwork/public-artwork/public-artwork';
 import { OrderSuccess } from './order/order-success/order-success';
 import { CustomerOrders } from './order/customer-orders/customer-orders';
 import { ArtistOrders } from './order/artist-orders/artist-orders';
+import { Search } from './search/search';
 
 export const routes: Routes = [
     { path: 'login', component: Login },
@@ -28,6 +29,7 @@ export const routes: Routes = [
     { path: 'orders/success/:orderId', component: OrderSuccess, canActivate: [customerGuard] },
     { path: 'my-orders', component: CustomerOrders, canActivate: [customerGuard] },
     { path: '', component: Homepage },
-    { path: 'shops/:slug/:artworkId', component: PublicArtwork }
+    { path: 'shops/:slug/:artworkId', component: PublicArtwork },
+    { path: 'search', component: Search }
     // { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];

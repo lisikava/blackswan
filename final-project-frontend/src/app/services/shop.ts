@@ -11,7 +11,7 @@ export class Shop {
   private apiUrl = 'http://localhost:8080/shops';
   constructor(private http: HttpClient) {}
 
-  createShop(data: { name: string, description: string }): Observable<any> {
+  createShop(data: { name: string, description: string, aiTags: boolean }): Observable<any> {
     return this.http.post(this.apiUrl, data);
   }
   getMyShop() {

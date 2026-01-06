@@ -5,6 +5,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import { Shop } from '../../services/shop';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -12,7 +13,7 @@ import { Subject } from 'rxjs';
 @Component({
   selector: 'app-create-shop',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatCheckboxModule],
   templateUrl: './create-shop.html',
   styleUrl: './create-shop.css',
 })
@@ -27,7 +28,8 @@ export class CreateShop {
   ) {
     this.shopForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
-      description: ['', [Validators.minLength(3)]]
+      description: ['', [Validators.minLength(3)]],
+      aiTags: false
     });
   }
 

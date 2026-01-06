@@ -4,31 +4,37 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {MatChipsModule} from '@angular/material/chips';
-import { Router, RouterLink } from '@angular/router';
-import { Artwork as ArtworkService } from '../services/artwork';
-import { Homepage as HomepageService } from '../services/homepage';
+import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { PublicArtwork } from '../shop/artwork/public-artwork.model';
 import { Subject } from 'rxjs';
+import { Search as SearchService } from '../services/search';
 
 @Component({
-  selector: 'app-homepage',
+  selector: 'app-search',
   imports: [CommonModule, MatButtonModule, RouterLink, MatCardModule, MatIconModule, MatChipsModule],
-  templateUrl: './homepage.html',
-  styleUrl: './homepage.css',
+  templateUrl: './search.html',
+  styleUrl: './search.css',
 })
-export class Homepage implements OnInit {
-
+export class Search {
+  tag!: string;
   artworks?: PublicArtwork[];
   artworks$: Subject<PublicArtwork[]> = new Subject<PublicArtwork[]>();
-
   constructor(
-      private homepageService: HomepageService,
-      private artworkService: ArtworkService,
+      private route: ActivatedRoute,
+      private searchService: SearchService,
       private router: Router
     ) {}
+  
 
   ngOnInit() {
-    this.homepageService.getRandomArtworks().subscribe({
+    this.route.queryParams.subscribe(params => {
+      this.tag = params['tag'];
+      this.load();
+    });
+  }
+
+  load() {
+    this.searchService.search(this.tag).subscribe({
         next: (artworks) => {
           this.artworks$.next(artworks);
         },
@@ -38,6 +44,7 @@ export class Homepage implements OnInit {
         }
       });
   }
+
   
   openShop(slug: string) {
     this.router.navigate(['/shops', slug]);
@@ -46,4 +53,5 @@ export class Homepage implements OnInit {
   openTag(tag: string) {
     this.router.navigate(['/search'], { queryParams: { tag } });
   }
+
 }

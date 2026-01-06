@@ -36,6 +36,7 @@ public class ShopService {
             throw new IllegalStateException("User already has a shop");
         }
         Shop shop = new Shop(dto.getName(), dto.getDescription(), user);
+        shop.setAiTags(dto.isAiTags());
         userRepository.save(user);
         // new token for if the role changes from customer to artist
 //        UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),

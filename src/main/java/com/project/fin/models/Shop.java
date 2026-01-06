@@ -21,6 +21,7 @@ public class Shop {
     private User owner;
     @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Artwork> artworks = new ArrayList<>();
+    private boolean aiTags;
 
     public Shop() {}
     public Shop(String name, String description, User owner) {
@@ -46,6 +47,10 @@ public class Shop {
         return slug;
     }
 
+    public boolean isAiTags() {
+        return aiTags;
+    }
+
     public List<Artwork> getArtworks() {
         return artworks;
     }
@@ -64,6 +69,11 @@ public class Shop {
     public void setArtworks(List<Artwork> artworks) {
         this.artworks = artworks;
     }
+
+    public void setAiTags(boolean aiTags) {
+        this.aiTags = aiTags;
+    }
+
     public void addArtwork(Artwork artwork) {
         this.artworks.add(artwork);
         artwork.setShop(this);

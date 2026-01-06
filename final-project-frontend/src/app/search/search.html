@@ -25,7 +25,7 @@
                            <mat-card-footer class="example-card-footer">
                               <mat-chip-set>
                                  @for (tag of art.tags; track tag) {
-                                    <mat-chip (click)="openTag(tag)" >{{tag}}</mat-chip>
+                                    <mat-chip (click)="openTag(tag)">{{tag}}</mat-chip>
                                  } @empty {}
                               </mat-chip-set>
                            

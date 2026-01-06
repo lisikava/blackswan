@@ -6,6 +6,7 @@ import com.project.fin.models.OrderStatus;
 public class ArtistOrderDto extends OrderDto {
     private String buyerEmail;
     private OrderStatus status;
+    private String imageUrl;
     public ArtistOrderDto() {}
 
     public OrderStatus getStatus() {
@@ -14,6 +15,14 @@ public class ArtistOrderDto extends OrderDto {
 
     public void setStatus(OrderStatus status) {
         this.status = status;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getBuyerEmail() {
@@ -32,6 +41,7 @@ public class ArtistOrderDto extends OrderDto {
         dto.setId(order.getId());
         dto.setBuyerEmail(order.getBuyer().getEmail());
         dto.setStatus(order.getStatus());
+        dto.setImageUrl(order.getArtwork().getImageUrl());
         return dto;
     }
 }

@@ -6,4 +6,5 @@ export interface Shop {
     slug: string;
     description: string;
     artworks?: Artwork[];
+    aiTags?: boolean;
 }

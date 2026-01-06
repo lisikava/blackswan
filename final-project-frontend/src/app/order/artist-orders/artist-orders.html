@@ -1,1 +1,38 @@
-<p>artist-orders works!</p>
+<div class="orders-container">
+    <header class="dashboard-header">
+         <h1>Your Orders</h1>
+         <p>Manage the orders you've received</p>
+    </header>
+    <mat-card class="grid-item manage-section">
+        <mat-card-header>
+        </mat-card-header>
+        <mat-card-content>
+        <div class="artwork-grid">
+            @if (orders$ | async; as orders) {
+                @for (order of orders; track order.id) {
+                    <div class="artwork-item">
+                    <mat-card class="art-card" appearance="outlined">
+                        <mat-card-header>
+                            <mat-card-title>Order #{{order.id}} from {{order.buyerEmail}}</mat-card-title>
+                        </mat-card-header>
+                        <div class="image-wrapper">
+                            <img mat-card-image [src]="'http://localhost:8080' + order.imageUrl">
+                        </div>
+                        <mat-card-content>
+                            <p><strong>Customer info:</strong></p>
+                            <p>{{order.fullName}}</p>
+                            <p>{{order.address}}, {{order.city}}, {{order.country}}</p>
+                            <p>Zip Code: {{order.zipCode}}</p>
+                        </mat-card-content>
+                        <mat-card-actions>
+                        </mat-card-actions>
+                    </mat-card>
+                    </div>
+                } @empty {
+                    <p>No orders yet.</p>
+                }
+            }
+        </div>
+        </mat-card-content>
+        </mat-card>
+</div>

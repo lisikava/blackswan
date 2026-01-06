@@ -35,7 +35,7 @@ export class Register {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       username: ['', Validators.required],
-      role: ['CUSTOMER', Validators.required], 
+      role: ['CUSTOMER', Validators.required]
     });
   }
 

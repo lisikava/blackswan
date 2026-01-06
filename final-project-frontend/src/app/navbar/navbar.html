@@ -3,6 +3,17 @@
 
   <span class="spacer"></span>
 
+  <span>
+    <mat-form-field appearance="outline" class="search">
+      <input matInput type="search" [(ngModel)]="query">
+      <button matSuffix mat-icon-button aria-label="Search" (click)="search()">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+  </span>
+
+  
+
   <div class="nav-links">
     
     

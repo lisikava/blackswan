@@ -12,7 +12,7 @@ export class OrderSuccess {
   constructor(
     private route: ActivatedRoute,
   ) {
-    this.orderId = this.route.snapshot.paramMap.get('artworkId')!;
+    this.orderId = this.route.snapshot.paramMap.get('orderId')!;
   }
 
 }

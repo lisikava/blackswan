@@ -12,6 +12,7 @@ import com.project.fin.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -109,5 +110,10 @@ public class ArtworkService {
     public PublicArtworkDto getArtwork(Long id) {
         Artwork artwork = artworkRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
         return PublicArtworkDto.toDto(artwork);
+    }
+
+    public List<PublicArtworkDto> findArtworksByTag(String tag, int limit) {
+        Page<Artwork> page = artworkRepository.findByTag(tag, PageRequest.of(0, limit));
+        return page.stream().map(a -> PublicArtworkDto.toDto(a)).toList();
     }
 }

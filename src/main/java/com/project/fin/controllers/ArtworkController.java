@@ -44,4 +44,10 @@ public class ArtworkController {
     public ResponseEntity<?> getArtwork(@PathVariable Long id) {
         return ResponseEntity.ok(artworkService.getArtwork(id));
     }
+
+    @GetMapping("/search")
+    @CrossOrigin
+    public List<PublicArtworkDto> searchByTag(@RequestParam String tag, @RequestParam(defaultValue = "12") int limit) {
+        return artworkService.findArtworksByTag(tag, limit);
+    }
 }

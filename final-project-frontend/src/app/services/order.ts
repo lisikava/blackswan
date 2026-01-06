@@ -33,6 +33,8 @@ export interface ArtistOrderDto {
   zipCode: string;
   phone: string;
   buyerEmail: string;
+  imageUrl: string;
+  status: string;
 }
 
 export interface CustomerOrderDto {
@@ -44,4 +46,6 @@ export interface CustomerOrderDto {
   zipCode: string;
   phone: string;
   shopName: string;
+  imageUrl: string;
+  status: string;
 }

@@ -59,6 +59,6 @@ export class Dashboard implements OnInit {
   }
   remove(id: number) {
     if (!confirm('Delete this artwork?')) return;
-    this.artworkService.deleteArtwork(id).subscribe(() => this.loadArtworks());
+      this.artworkService.deleteArtwork(id).subscribe(() => this.loadArtworks());
   }
 }
